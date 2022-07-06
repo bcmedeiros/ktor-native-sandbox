@@ -19,15 +19,28 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    nativeTarget.apply {
-        binaries {
+    val platforms = listOf(
+        macosArm64 {
+
+        },
+        macosX64 {
+
+        },
+        linuxX64 {
+
+        },
+    )
+
+    platforms.forEach { p ->
+        p.binaries {
             executable {
                 entryPoint = "main"
             }
         }
     }
+
     sourceSets {
-        val nativeMain by getting
-        val nativeTest by getting
+        val commonMain by getting
+        val commonTest by getting
     }
 }
