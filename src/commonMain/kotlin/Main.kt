@@ -5,24 +5,29 @@ import io.ktor.server.engine.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.sessions.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 
 fun main(): Unit = runBlocking {
     println("Starting Ktor...")
 
-    var count = 0L
-
     val server = embeddedServer(CIO, port = 8080) {
         install(ContentNegotiation) {
             json()
         }
+        install(Sessions) {
+            cookie<UserData>("user_data")
+        }
         routing {
             get("/") {
+                val userData = call.sessions.get() ?: UserData()
+                val newUserData = userData.copy(count = userData.count + 1)
+                call.sessions.set(newUserData)
                 call.respond(
                     HelloResponse(
                         message = "Hello, world, from Ktor/Native!",
-                        count = ++count,
+                        count = newUserData.count,
                     )
                 )
             }
@@ -31,6 +36,11 @@ fun main(): Unit = runBlocking {
 
     server.start()
 }
+
+@Serializable
+data class UserData(
+    val count: Long = 0,
+)
 
 @Serializable
 data class HelloResponse(
