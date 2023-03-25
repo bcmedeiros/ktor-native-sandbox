@@ -1,3 +1,3 @@
 
-rootProject.name = "ktor-native-example"
+rootProject.name = "ktor-native-sandbox"
 
