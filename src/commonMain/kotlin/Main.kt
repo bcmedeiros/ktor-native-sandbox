@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 fun main(): Unit = runBlocking {
     println("Starting Ktor...")
 
-    val server = embeddedServer(CIO, port = 8080) {
+    val server = embeddedServer(CIO, port = 8080, module = {
         install(ContentNegotiation) {
             json()
         }
@@ -32,7 +32,7 @@ fun main(): Unit = runBlocking {
                 )
             }
         }
-    }
+    })
 
     server.start()
 }
