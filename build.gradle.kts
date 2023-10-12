@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.8.0"
-    kotlin("plugin.serialization") version "1.8.0"
+    kotlin("multiplatform") version "1.9.10"
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 group = "dev.bcmedeiros"
