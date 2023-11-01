@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.9.10"
-    kotlin("plugin.serialization") version "1.9.10"
+    kotlin("multiplatform") version "1.9.20"
+    kotlin("plugin.serialization") version "1.9.20"
 }
 
 group = "dev.bcmedeiros"
@@ -29,7 +29,7 @@ kotlin {
 
     sourceSets {
         val ktorVersion = "2.3.5"
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation("io.ktor:ktor-server-core:$ktorVersion")
                 implementation("io.ktor:ktor-server-cio:$ktorVersion")
@@ -38,6 +38,5 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
             }
         }
-        val commonTest by getting
     }
 }
